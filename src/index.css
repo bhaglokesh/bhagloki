@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-[#1A1A1A] bg-[#F8F6F4] antialiased selection:bg-[#BE185D]/20 selection:text-[#1A1A1A];
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-medium text-[#1A1A1A];
+  }
+
+  .dark body {
+    @apply bg-[#121212] text-[#E5E7EB] selection:bg-[#F472B6]/20 selection:text-[#E5E7EB];
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    @apply text-[#E5E7EB];
+  }
+}
+
+@keyframes ios-spinner {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-ios-spinner {
+  animation: ios-spinner 1.2s linear infinite;
+}
