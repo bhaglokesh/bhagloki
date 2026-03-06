@@ -94,7 +94,7 @@ export default function Projects() {
         <h2 className="text-[10px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase font-sans">
           Portfolio
         </h2>
-        <h1 className="text-3xl md:text-3xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
+        <h1 className="text-3xl md:text-5xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
           Projects
         </h1>
         <p className="max-w-2xl text-base md:text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-light">
