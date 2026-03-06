@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Tooltip } from '../components/Tooltip';
 
 const getBadgeColor = (badge: string) => {
   switch (badge.toLowerCase()) {
@@ -78,6 +77,16 @@ const projects = [
 
 export default function Projects() {
   const [lightbox, setLightbox] = useState<{ images: string[], index: number } | null>(null);
+  const [activeTooltip, setActiveTooltip] = useState<{ pIndex: number, iIndex: number } | null>({ pIndex: 0, iIndex: 0 });
+
+  useEffect(() => {
+    if (activeTooltip) {
+      const timer = setTimeout(() => {
+        setActiveTooltip(null);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [activeTooltip]);
 
   return (
     <div className="space-y-8">
@@ -85,7 +94,7 @@ export default function Projects() {
         <h2 className="text-[10px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase font-sans">
           Portfolio
         </h2>
-        <h1 className="text-3xl md:text-5xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
+        <h1 className="text-3xl md:text-3xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
           Projects
         </h1>
         <p className="max-w-2xl text-base md:text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-light">
@@ -94,11 +103,12 @@ export default function Projects() {
       </div>
 
       <div className="grid gap-6">
-        {projects.map((project, index) => (
-          <div 
-            key={index} 
-            className="group relative flex flex-col gap-4 p-6 border border-stone-100 dark:border-stone-800/50 rounded-xl hover:border-emerald-500/30 dark:hover:border-emerald-500/30 hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-all duration-500 ease-in-out"
-          >
+        {projects.map((project, index) => {
+          return (
+            <div 
+              key={index} 
+              className="group relative flex flex-col gap-4 p-6 border border-stone-100 dark:border-stone-800/50 rounded-xl hover:border-emerald-500/30 dark:hover:border-emerald-500/30 hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-all duration-500 ease-in-out"
+            >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <h3 className="text-xl font-serif font-medium text-stone-900 dark:text-stone-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-500 transition-colors">
@@ -180,22 +190,35 @@ export default function Projects() {
               {/* Small Avatar-like Images */}
               {project.images && project.images.length > 0 && (
                 <div className="flex items-center gap-2">
-                  {project.images.map((img, imgIndex) => (
-                    <img
-                      key={imgIndex}
-                      src={img}
-                      alt={`${project.title} screenshot ${imgIndex + 1}`}
-                      className="w-8 h-8 rounded object-cover cursor-pointer border border-stone-200 dark:border-stone-700 hover:scale-110 hover:border-emerald-500/50 transition-all shadow-sm"
-                      onClick={() => setLightbox({ images: project.images, index: imgIndex })}
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                    />
-                  ))}
+                  {project.images.map((img, imgIndex) => {
+                    const isTooltipVisible = activeTooltip?.pIndex === index && activeTooltip?.iIndex === imgIndex && !lightbox;
+                    return (
+                      <div 
+                        key={imgIndex} 
+                        className="relative group/img"
+                        onMouseEnter={() => setActiveTooltip({ pIndex: index, iIndex: imgIndex })}
+                      >
+                        <img
+                          src={img}
+                          alt={`${project.title} screenshot ${imgIndex + 1}`}
+                          className="w-8 h-8 rounded object-cover cursor-pointer border border-stone-200 dark:border-stone-700 hover:scale-110 hover:border-emerald-500/50 transition-all shadow-sm"
+                          onClick={() => setLightbox({ images: project.images, index: imgIndex })}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-800 text-[10px] font-medium rounded transition-opacity pointer-events-none z-10 whitespace-nowrap shadow-sm ${isTooltipVisible ? 'opacity-100' : 'opacity-0'}`}>
+                          Click to zoom
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-stone-800 dark:border-t-stone-200"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
           </div>
-        ))}
+        );
+        })}
       </div>
 
       {/* Image Modal Gallery */}
