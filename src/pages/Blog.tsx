@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { posts } from '../data/posts';
 
 const getBadgeColor = (badge: string) => {
@@ -40,12 +40,13 @@ export default function Blog() {
             key={post.id} 
             className="group flex flex-col gap-4 p-4 border border-transparent rounded-lg hover:border-stone-100 dark:hover:border-stone-800 hover:bg-stone-50/50 dark:hover:bg-stone-900/30 hover:shadow-sm transition-all duration-300 ease-in-out"
           >
-            <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono text-stone-500 dark:text-stone-400">
-              <span className="px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-medium uppercase tracking-wider">
+            <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono text-stone-500 dark:text-stone-400">
+              <span className="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-medium uppercase tracking-wider">
                 {post.category}
               </span>
-              <span>•</span>
-              <span>{post.date}</span>
+              <span className="flex items-center gap-1">
+                <Calendar size={12} /> {post.date}
+              </span>
             </div>
 
             <Link to={`/blog/${post.id}`} className="block space-y-3 flex-grow">
@@ -67,12 +68,14 @@ export default function Blog() {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-xs text-stone-400 dark:text-stone-500">{post.readTime}</span>
+                <span className="flex items-center gap-1 text-xs text-stone-400 dark:text-stone-500">
+                  <Clock size={12} /> {post.readTime}
+                </span>
                 <Link 
                   to={`/blog/${post.id}`}
-                  className="flex items-center gap-1 text-[10px] font-bold text-stone-900 dark:text-stone-100 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.2em] transition-colors"
+                  className="group/link flex items-center gap-1 text-[10px] font-bold text-stone-900 dark:text-stone-100 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.2em] transition-colors"
                 >
-                  Read <ArrowRight size={10} />
+                  Read <ArrowRight size={12} className="transition-transform group-hover/link:translate-x-1" />
                 </Link>
               </div>
             </div>

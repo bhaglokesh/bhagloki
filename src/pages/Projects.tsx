@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen } from 'lucide-react';
 import { Tooltip } from '../components/Tooltip';
 
 const getBadgeColor = (badge: string) => {
@@ -24,8 +24,9 @@ const projects = [
     year: "2024",
     description: "A minimal web app to track income and expenses, with visual charts and monthly summaries. Built with a focus on simplicity and speed.",
     tags: ["React", "Chart.js", "Node.js", "MongoDB"],
-    github: "#",
-    live: "#"
+    github: "https://github.com",
+    live: "https://example.com",
+    blog: "/blog/finance-tracker"
   },
   {
     title: "Open Notes",
@@ -33,8 +34,9 @@ const projects = [
     year: "2024",
     description: "A lightweight markdown note-taking app with offline support and a clean, distraction-free writing mode. No accounts needed.",
     tags: ["TypeScript", "IndexedDB", "CSS"],
-    github: "#",
-    live: "#"
+    github: "https://github.com",
+    live: "https://example.com",
+    blog: null
   },
   {
     title: "Weather CLI",
@@ -42,8 +44,9 @@ const projects = [
     year: "2023",
     description: "Command-line tool that fetches real-time weather data and displays it with clean terminal formatting. Supports geolocation and unit conversion.",
     tags: ["Go", "Weather API", "CLI"],
-    github: "#",
-    live: null // CLI tool might not have a live link
+    github: "https://github.com",
+    live: null,
+    blog: "/blog/weather-cli"
   },
   {
     title: "Portfolio v1",
@@ -51,75 +54,108 @@ const projects = [
     year: "2022",
     description: "My first portfolio website built with vanilla HTML/CSS and JavaScript. A learning experience in responsive design.",
     tags: ["HTML", "CSS", "JavaScript"],
-    github: "#",
-    live: "#"
+    github: "https://github.com",
+    live: "https://example.com",
+    blog: null
   }
 ];
 
 export default function Projects() {
   return (
-    <div className="space-y-6">
-      <div className="space-y-2 border-b border-stone-100 dark:border-stone-800 pb-6">
+    <div className="space-y-8">
+      <div className="space-y-2 border-b border-stone-100 dark:border-stone-800 pb-8">
         <h2 className="text-[10px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase font-sans">
           Portfolio
         </h2>
         <h1 className="text-3xl md:text-4xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
           Projects
         </h1>
-        <p className="max-w-2xl text-sm md:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-light">
+        <p className="max-w-2xl text-base md:text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-light">
           A selection of things I've built — side projects, tools, and experiments.
         </p>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {projects.map((project, index) => (
           <div 
             key={index} 
-            className="group flex flex-col gap-1 p-2 border border-transparent rounded-lg hover:border-stone-100 dark:hover:border-stone-800 hover:bg-stone-50/50 dark:hover:bg-stone-900/30 hover:shadow-sm transition-all duration-300 ease-in-out"
+            className="group relative flex flex-col gap-4 p-6 border border-stone-100 dark:border-stone-800/50 rounded-xl hover:border-emerald-500/30 dark:hover:border-emerald-500/30 hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-all duration-500 ease-in-out"
           >
-            <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-1">
-              <h3 className="text-base font-serif font-medium text-stone-900 dark:text-stone-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-500 transition-colors">
-                {project.title}
-              </h3>
-              <div className="flex items-center gap-2 text-[10px] font-mono">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <h3 className="text-xl font-serif font-medium text-stone-900 dark:text-stone-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-500 transition-colors">
+                  {project.title}
+                </h3>
+                <div className="flex items-center gap-3 text-[10px] font-mono text-stone-400 dark:text-stone-500">
+                  <span className="flex items-center gap-1">
+                    <Calendar size={12} /> {project.year}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-stone-300 dark:bg-stone-700"></span>
+                  <span className="flex items-center gap-1">
+                    <Code2 size={12} /> {project.tags.length} Technologies
+                  </span>
+                </div>
+              </div>
+              
+              <div className="flex flex-wrap items-center gap-2">
                 {project.badges?.map(badge => (
-                  <span key={badge} className={`px-1.5 py-0 rounded border text-[9px] font-medium ${getBadgeColor(badge)}`}>
+                  <span key={badge} className={`inline-flex items-center px-2 py-0.5 rounded border text-[10px] font-medium transition-colors ${getBadgeColor(badge)}`}>
                     {badge}
                   </span>
                 ))}
-                <span className="text-stone-400 dark:text-stone-500">
-                  {project.year}
-                </span>
               </div>
             </div>
 
-            <p className="text-stone-600 dark:text-stone-400 leading-relaxed max-w-3xl font-light text-xs">
+            <p className="text-stone-600 dark:text-stone-400 leading-relaxed max-w-3xl font-light text-sm">
               {project.description}
             </p>
 
-            <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
-                <span key={tag} className="text-[9px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-900/20 px-1.5 py-0 rounded">
-                  #{tag}
+                <span key={tag} className="text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-400 font-medium bg-stone-100 dark:bg-stone-800/50 px-2 py-1 rounded border border-stone-200/50 dark:border-stone-700/50 group-hover:border-emerald-500/20 transition-colors">
+                  {tag}
                 </span>
               ))}
             </div>
 
-            <div className="flex items-center gap-3 pt-0.5">
+            <div className="flex items-center gap-6 pt-2 border-t border-stone-100/50 dark:border-stone-800/50">
               {project.github && (
-                <a href={project.github} className="flex items-center gap-0.5 text-[9px] font-bold text-stone-900 dark:text-stone-100 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.2em] transition-colors">
-                  GitHub <ArrowUpRight size={9} />
+                <a 
+                  href={project.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[10px] font-bold text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 uppercase tracking-[0.2em] transition-all group/link"
+                >
+                  <Github size={14} className="group-hover/link:scale-110 transition-transform" />
+                  Source Code
                 </a>
               )}
               {project.live && (
-                <a href={project.live} className="flex items-center gap-0.5 text-[9px] font-bold text-stone-900 dark:text-stone-100 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.2em] transition-colors">
-                  Live <ArrowUpRight size={9} />
+                <a 
+                  href={project.live} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[10px] font-bold text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.2em] transition-all group/link"
+                >
+                  <ExternalLink size={14} className="group-hover/link:scale-110 transition-transform" />
+                  Live Demo
                 </a>
               )}
-              {/* Future Blog Link Placeholder */}
-              <button className="flex items-center gap-0.5 text-[9px] font-bold text-stone-400 dark:text-stone-600 uppercase tracking-[0.2em] cursor-not-allowed">
-                Blog Post (Coming Soon)
-              </button>
+              {project.blog && (
+                <a 
+                  href={project.blog}
+                  className="flex items-center gap-2 text-[10px] font-bold text-stone-600 dark:text-stone-400 hover:text-purple-700 dark:hover:text-purple-500 uppercase tracking-[0.2em] transition-all group/link"
+                >
+                  <BookOpen size={14} className="group-hover/link:scale-110 transition-transform" />
+                  Read Post
+                </a>
+              )}
+              {!project.live && !project.blog && (
+                <span className="flex items-center gap-2 text-[10px] font-bold text-stone-300 dark:text-stone-700 uppercase tracking-[0.2em] cursor-not-allowed">
+                  <Globe size={14} />
+                  No Demo
+                </span>
+              )}
             </div>
           </div>
         ))}
@@ -127,3 +163,4 @@ export default function Projects() {
     </div>
   );
 }
+

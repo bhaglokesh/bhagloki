@@ -2,6 +2,8 @@ import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '../components/Tooltip';
+import profileImg from '../assets/images/lokesh.jpg';
+
 
 export default function Home() {
   return (
@@ -11,8 +13,8 @@ export default function Home() {
         <div className="flex flex-col gap-4 md:gap-5">
           <div className="w-21 h-21 md:w-29 md:h-29 rounded-full overflow-hidden border-[1px] border-[#0f766e] shadow-md">
             <img 
-              src="https://picsum.photos/seed/developer/400/400" 
-              alt="John Doe" 
+              src={profileImg} 
+              alt="My profile picture" 
               className="w-full h-full object-cover"
               loading="lazy"
               referrerPolicy="no-referrer"
@@ -28,7 +30,7 @@ export default function Home() {
             </h1>
             <p className="max-w-2xl text-sm md:text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-light">
               I build clean, thoughtful software. Interested in web technologies, 
-              developer tools, and the occasional side project. Based in Kolkata, India.
+              developer tools, and the occasional side project. Based in Nagpur, India.
             </p>
           </div>
 
@@ -58,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="space-y-3 md:space-y-6">
+      <section className="space-y-2 md:space-y-4">
         <div className="space-y-1">
           <h3 className="text-lg md:text-xl font-serif text-stone-900 dark:text-stone-50">About</h3>
           <div className="w-12 h-0.5 bg-emerald-500"></div>
@@ -66,30 +68,24 @@ export default function Home() {
         
         <div className="space-y-3 md:space-y-5 text-stone-600 dark:text-stone-300 leading-relaxed max-w-3xl font-light text-sm md:text-lg">
           <p>
-            Hi, I'm John — a self-taught developer with a love for minimalism and clean interfaces. 
-            I started coding in 2019 and have been building web applications ever since. 
-            I enjoy the craft of writing simple, readable code that solves real problems.
+            I am a passionate software engineer with experience in building web applications and solving complex problems. I enjoy working with modern technologies and continuously learning new skills.
           </p>
           <p>
-            When I'm not coding, I'm reading, sketching UI ideas in notebooks, or exploring 
-            open-source projects. I believe good software should feel invisible — it just works.
+            Currently, I'm focused on building scalable applications and exploring new technologies in the web development ecosystem. When I'm not coding, you can find me reading, hiking, or experimenting with new tech projects.
           </p>
-          <p>
-            Currently open to freelance projects and full-time opportunities. If you have something 
-            interesting in mind, I'd love to hear from you.
-          </p>
+         
         </div>
       </section>
 
       {/*current focus */}
-      <section className="space-y-3 md:space-y-6">
+      <section className="space-y-2 md:space-y-4">
         <div className="space-y-1">
           <h3 className="text-lg md:text-xl font-serif text-stone-900 dark:text-stone-50">Current focus</h3>
           <div className="w-12 h-0.5 bg-emerald-500"></div>
         </div>
         
         <div className="space-y-3 md:space-y-5 text-stone-600 dark:text-stone-300 leading-relaxed max-w-3xl font-light text-sm md:text-lg">
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="list-disc list-inside space-y-0.5">
             <li>Full-stack web development</li>
             <li>Cloud architecture and DevOps</li>
             <li>Open source contributions</li>
