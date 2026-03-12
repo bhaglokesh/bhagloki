@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight, Plus, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 
@@ -75,6 +75,13 @@ export default function Projects() {
                       {badge}
                     </span>
                   ))}
+                  <Link 
+                    to={`/projects/${project.id}`}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all bg-emerald-500 text-white border border-transparent hover:bg-emerald-600 dark:bg-emerald-500 dark:text-stone-950 dark:hover:bg-emerald-400 shadow-sm hover:shadow-emerald-500/20 hover:-translate-y-0.5 group/details"
+                  >
+                    Details
+                    <ArrowRight size={10} className="group-hover/details:translate-x-0.5 transition-transform" />
+                  </Link>
                 </div>
               </div>
 
