@@ -14,8 +14,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "personal-finance-tracker",
-    title: "Personal Finance Tracker",
+    id: "AI-Resume-Analyzer-and-Interview-Prep-Tool", 
+    title: "AI Resume Analyzer & Interview Prep Tool ",
     badges: ["Live", "Open Source"],
     year: "2024",
     description: "A minimal web app to track income and expenses, with visual charts and monthly summaries. Built with a focus on simplicity and speed.",
@@ -36,8 +36,9 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: "open-notes",
-    title: "Open Notes",
+    id: "Real-Time-Multi-User-Device-Tracker",
+    title: "Real-Time Multi-User Device Tracker ",
+    
     badges: ["In Progress", "Open Source"],
     year: "2024",
     description: "A lightweight markdown note-taking app with offline support and a clean, distraction-free writing mode. No accounts needed.",
@@ -53,8 +54,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: "weather-cli",
-    title: "Weather CLI",
+    id: "CanvasCraft–ML-Powered-Gesture-Drawing-Board",
+    title: "CanvasCraft – ML-Powered Gesture Drawing Board",
     badges: ["Completed", "Open Source"],
     year: "2023",
     description: "Command-line tool that fetches real-time weather data and displays it with clean terminal formatting. Supports geolocation and unit conversion.",
