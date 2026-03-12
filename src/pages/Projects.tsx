@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { projects } from '../data/projects';
 
 const getBadgeColor = (badge: string) => {
   switch (badge.toLowerCase()) {
@@ -16,68 +18,10 @@ const getBadgeColor = (badge: string) => {
   }
 };
 
-const projects = [
-  {
-    title: "Personal Finance Tracker",
-    badges: ["Live", "Open Source"],
-    year: "2024",
-    description: "A minimal web app to track income and expenses, with visual charts and monthly summaries. Built with a focus on simplicity and speed.",
-    tags: ["React", "Chart.js", "Node.js", "MongoDB"],
-    github: "https://github.com",
-    live: "https://example.com",
-    blog: "/blog/finance-tracker",
-    images: [
-      "https://picsum.photos/seed/finance1/800/600",
-      "https://picsum.photos/seed/finance2/800/600",
-      "https://picsum.photos/seed/finance3/800/600"
-    ]
-  },
-  {
-    title: "Open Notes",
-    badges: ["In Progress", "Open Source"],
-    year: "2024",
-    description: "A lightweight markdown note-taking app with offline support and a clean, distraction-free writing mode. No accounts needed.",
-    tags: ["TypeScript", "IndexedDB", "CSS"],
-    github: "https://github.com",
-    live: "https://example.com",
-    blog: null,
-    images: [
-      "https://picsum.photos/seed/notes1/800/600",
-      "https://picsum.photos/seed/notes2/800/600"
-    ]
-  },
-  {
-    title: "Weather CLI",
-    badges: ["Completed", "Open Source"],
-    year: "2023",
-    description: "Command-line tool that fetches real-time weather data and displays it with clean terminal formatting. Supports geolocation and unit conversion.",
-    tags: ["Go", "Weather API", "CLI"],
-    github: "https://github.com",
-    live: null,
-    blog: "/blog/weather-cli",
-    images: [
-      "https://picsum.photos/seed/weather1/800/600"
-    ]
-  },
-  {
-    title: "Portfolio v1",
-    badges: ["Archived"],
-    year: "2022",
-    description: "My first portfolio website built with vanilla HTML/CSS and JavaScript. A learning experience in responsive design.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com",
-    live: "https://example.com",
-    blog: null,
-    images: [
-      "https://picsum.photos/seed/portfolio1/800/600",
-      "https://picsum.photos/seed/portfolio2/800/600"
-    ]
-  }
-];
-
 export default function Projects() {
   const [lightbox, setLightbox] = useState<{ images: string[], index: number } | null>(null);
   const [activeTooltip, setActiveTooltip] = useState<{ pIndex: number, iIndex: number } | null>({ pIndex: 0, iIndex: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeTooltip) {
@@ -94,7 +38,7 @@ export default function Projects() {
         <h2 className="text-[10px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase font-sans">
           Portfolio
         </h2>
-        <h1 className="text-3xl md:text-4xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
+        <h1 className="text-3xl md:text-5xl font-serif text-stone-900 dark:text-stone-50 tracking-tight">
           Projects
         </h1>
         <p className="max-w-2xl text-base md:text-lg text-stone-600 dark:text-stone-300 leading-relaxed font-light">
@@ -112,7 +56,7 @@ export default function Projects() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <h3 className="text-xl font-serif font-medium text-stone-900 dark:text-stone-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-500 transition-colors">
-                    {project.title}
+                    <Link to={`/projects/${project.id}`}>{project.title}</Link>
                   </h3>
                   <div className="flex items-center gap-3 text-[10px] font-mono text-stone-400 dark:text-stone-500">
                     <span className="flex items-center gap-1">
@@ -190,7 +134,7 @@ export default function Projects() {
               {/* Small Avatar-like Images */}
               {project.images && project.images.length > 0 && (
                 <div className="flex items-center gap-2">
-                  {project.images.map((img, imgIndex) => {
+                  {project.images.slice(0, 2).map((img, imgIndex) => {
                     const isTooltipVisible = activeTooltip?.pIndex === index && activeTooltip?.iIndex === imgIndex && !lightbox;
                     return (
                       <div 
@@ -213,6 +157,18 @@ export default function Projects() {
                       </div>
                     );
                   })}
+                  
+                  {/* Add symbol to navigate to project page */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/projects/${project.id}`);
+                    }}
+                    className="w-8 h-8 flex items-center justify-center rounded bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-500 dark:text-stone-400 hover:scale-110 hover:border-emerald-500/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all shadow-sm cursor-pointer"
+                    title="View project details & gallery"
+                  >
+                    <Plus size={16} />
+                  </button>
                 </div>
               )}
             </div>
@@ -240,10 +196,10 @@ export default function Projects() {
 
             {lightbox.images.length > 1 && (
               <button 
-                className="hidden md:flex p-3 text-white/50 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all backdrop-blur-md"
+                className="absolute left-2 md:static z-50 flex p-2 md:p-3 text-white/70 hover:text-white bg-black/40 hover:bg-black/60 rounded-full transition-all backdrop-blur-md"
                 onClick={() => setLightbox(prev => prev ? { ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length } : null)}
               >
-                <ChevronLeft size={28} />
+                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
               </button>
             )}
 
@@ -271,10 +227,10 @@ export default function Projects() {
 
             {lightbox.images.length > 1 && (
               <button 
-                className="hidden md:flex p-3 text-white/50 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all backdrop-blur-md"
+                className="absolute right-2 md:static z-50 flex p-2 md:p-3 text-white/70 hover:text-white bg-black/40 hover:bg-black/60 rounded-full transition-all backdrop-blur-md"
                 onClick={() => setLightbox(prev => prev ? { ...prev, index: (prev.index + 1) % prev.images.length } : null)}
               >
-                <ChevronRight size={28} />
+                <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
               </button>
             )}
           </div>

@@ -7,6 +7,7 @@ import { ThemeProvider } from './context/ThemeContext';
 
 const Home = lazy(() => import('./pages/Home'));
 const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -32,6 +33,7 @@ export default function App() {
                 <Route path="/experience" element={<Experience />} />
                 <Route path="/education" element={<Education />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/skills" element={<Skills />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/blog" element={<Blog />} />
