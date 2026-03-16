@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Github, ExternalLink, Code2, Calendar, Globe, Terminal, Archive, BookOpen, X, ChevronLeft, ChevronRight, Plus, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
-import { TechBadge } from '../components/TechBadge';
 
 const getBadgeColor = (badge: string) => {
   switch (badge.toLowerCase()) {
@@ -35,7 +34,7 @@ export default function Projects() {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-2 border-b border-stone-200 dark:border-stone-800 pb-8">
+      <div className="space-y-2 border-b border-stone-100 dark:border-stone-800 pb-8">
         <h2 className="text-[10px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase font-sans">
           Portfolio
         </h2>
@@ -47,12 +46,12 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="grid gap-8">
+      <div className="grid gap-6">
         {projects.map((project, index) => {
           return (
             <div 
               key={index} 
-              className="group relative flex flex-col gap-4 p-6 bg-white dark:bg-stone-900/40 border border-stone-200 dark:border-stone-800 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500/40 dark:hover:border-emerald-500/40 transition-all duration-300 ease-in-out"
+              className="group relative flex flex-col gap-4 p-6 border border-stone-100 dark:border-stone-800/50 rounded-xl hover:border-emerald-500/30 dark:hover:border-emerald-500/30 hover:bg-stone-50/50 dark:hover:bg-stone-900/20 transition-all duration-500 ease-in-out"
             >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="space-y-1">
@@ -92,11 +91,13 @@ export default function Projects() {
 
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <TechBadge key={tag} tag={tag} />
+                  <span key={tag} className="text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-400 font-medium bg-stone-100 dark:bg-stone-800/50 px-2 py-1 rounded border border-stone-200/50 dark:border-stone-700/50 group-hover:border-emerald-500/20 transition-colors">
+                    {tag}
+                  </span>
                 ))}
               </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-stone-200 dark:border-stone-800 mt-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-stone-100/50 dark:border-stone-800/50 mt-auto">
               <div className="flex items-center gap-6">
                 {project.github && (
                   <a 

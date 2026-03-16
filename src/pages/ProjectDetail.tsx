@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink, Code2, Calendar, BookOpen, Globe, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { projects } from '../data/projects';
-import { TechBadge } from '../components/TechBadge';
 
 const getBadgeColor = (badge: string) => {
   switch (badge.toLowerCase()) {
@@ -80,31 +79,33 @@ export default function ProjectDetail() {
 
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <TechBadge key={tag} tag={tag} className="px-3 py-1.5" />
+            <span key={tag} className="text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-400 font-medium bg-stone-100 dark:bg-stone-800/50 px-3 py-1.5 rounded border border-stone-200/50 dark:border-stone-700/50">
+              {tag}
+            </span>
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 pt-4">
-          {project.live && (
-            <a 
-              href={project.live} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:text-stone-950 dark:hover:bg-emerald-400 text-xs font-bold uppercase tracking-[0.15em] transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 group/link"
-            >
-              <ExternalLink size={16} className="group-hover/link:scale-110 transition-transform" />
-              Live Demo
-            </a>
-          )}
+        <div className="flex flex-wrap items-center gap-6 pt-4">
           {project.github && (
             <a 
               href={project.github} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700 text-xs font-bold uppercase tracking-[0.15em] transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 group/link"
+              className="flex items-center gap-2 text-xs font-bold text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 uppercase tracking-[0.15em] transition-all group/link"
             >
               <Github size={16} className="group-hover/link:scale-110 transition-transform" />
               Source Code
+            </a>
+          )}
+          {project.live && (
+            <a 
+              href={project.live} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-bold text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-500 uppercase tracking-[0.15em] transition-all group/link"
+            >
+              <ExternalLink size={16} className="group-hover/link:scale-110 transition-transform" />
+              Live Demo
             </a>
           )}
         </div>
